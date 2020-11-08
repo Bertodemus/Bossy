@@ -1,21 +1,17 @@
-var express = require("express");
 var mysql = require("mysql");
+var inquirer = require("inquirer");
+var cTable = require("console.table");
+var viewit = require('./lib/view');
 var addin = require('./lib/add');
 var remout = require('./lib/remove');
-var upd = require('./lib/update')
-
-var app = express();
-var PORT = process.env.PORT || 8080;
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+var upd = require('./lib/update');
 
 var connection = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  password: "My5q1_Okinawa1",
-  database: "bossycms_db"
+    host: "localhost",
+    port: 3306,
+    user: "root",
+    password: "My5q1_Okinawa1",
+    database: "bossycms_db"
 });
 
 connection.connect(function(err) {
@@ -28,66 +24,55 @@ connection.connect(function(err) {
 });
 
 function runCMS() {
-    inquirer
-        .prompt({
-            name: "action",
-            type: "list",
-            message: "What would you like to do?",
-            choices: [
-                "View Departments",
-                "View Roles",
-                "View Employees",
-                "Add Department",
-                "Add Role",
-                "Add Employee",
-                "Update Employee Roles",
-                "exit"
-            ]
-        })
-        .then(function(answer) {
-            switch (answer.action) {
-            case "View Departments":
-                addin.viewD();
-                break;
-    
-            case "View Roles":
-                viewR();
-                break;
-    
-            case "View Employees":
-                viewE();
-                break;
+    inquirer.prompt({
+        name: "action",
+        type: "list",
+        message: "What would you like to do?",
+        choices: [
+            "View Departments",
+            "View Roles",
+            "View Employees",
+            "Add Department",
+            "Add Role",
+            "Add Employee",
+            "Update Employee Roles",
+            "exit"
+        ]
+    })
+    .then( function(answer) {
+        switch (answer.action) {
 
-            case "Add Department":
-                addD();
-                break;
+        case "View Departments":
+            viewit.viewD(connection);
+            break;
 
-            case "Add Role":
-                addR();
-                break;
+        case "View Roles":
+            viewit.viewR(connection);
+            break;
 
-            case "Add Employee":
-                addE();
-                break;
+        case "View Employees":
+            viewit.viewE(connection);
+            break;
 
-            case "Update Employee Role":
-                updateEmpRole();
-                break;
-    
-            case "exit":
-                connection.end();
-                break;
-            }
-        });
-    }
+        case "Add Department":
+            addD();
+            break;
 
+        case "Add Role":
+            addR();
+            break;
 
+        case "Add Employee":
+            addE();
+            break;
 
+        case "Update Employee Role":
+            updateEmpRole();
+            break;
 
-
-  // Start our server so that it can begin listening to client requests.
-app.listen(PORT, function() {
-    // Log (server-side) when our server has started
-    console.log("Server listening on: http://localhost:" + PORT);
-  });
-
+        case "exit":
+            connection.end();
+            break;
+        }
+    });
+}
