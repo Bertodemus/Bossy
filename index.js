@@ -1,6 +1,7 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
-var cTable = require("console.table");
+var cTable = require('console.table');
+var figlet = require('figlet');
 var viewit = require('./lib/view');
 var addin = require('./lib/add');
 var remout = require('./lib/remove');
@@ -20,6 +21,13 @@ connection.connect(function(err) {
     return;
   }
   console.log("connected as id " + connection.threadId);
+  console.log(figlet.textSync('BOSSY CMS', {
+    font: 'ANSI Shadow',
+    horizontalLayout: 'default',
+    verticalLayout: 'default',
+    width:150,
+    whitespaceBreak: true
+}));
   runCMS();
 });
 
@@ -61,7 +69,7 @@ function runCMS() {
                 message: "What department would you like to add?"
             }).then(function(answer){
                 let department = answer.department;
-                addin.addD(department, connection, runCMS);
+                addin.addD(department, connection, runCMS, figlet);
             });
             break;
 
@@ -183,6 +191,20 @@ function runCMS() {
             break;
 
         case "Exit":
+console.log(
+`
+
+
+Thank you for using`
+);
+
+            console.log(figlet.textSync('BOSSY CMS', {
+                font: 'ANSI Shadow',
+                horizontalLayout: 'default',
+                verticalLayout: 'default',
+                width:150,
+                whitespaceBreak: true
+            }));
             connection.end();
             break;
         }
