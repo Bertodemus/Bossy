@@ -35,42 +35,154 @@ function runCMS() {
             "Add Department",
             "Add Role",
             "Add Employee",
-            "Update Employee Roles",
-            "exit"
+            "Update Employee Role",
+            "Exit"
         ]
     })
     .then( function(answer) {
         switch (answer.action) {
 
         case "View Departments":
-            viewit.viewD(connection);
+            viewit.viewD(connection, runCMS);
             break;
 
         case "View Roles":
-            viewit.viewR(connection);
+            viewit.viewR(connection, runCMS);
             break;
 
         case "View Employees":
-            viewit.viewE(connection);
+            viewit.viewE(connection, runCMS);
             break;
 
         case "Add Department":
-            addD();
+            inquirer.prompt({
+                name: "department",
+                type: "input",
+                message: "What department would you like to add?"
+            }).then(function(answer){
+                let department = answer.department;
+                addin.addD(department, connection, runCMS);
+            });
             break;
 
         case "Add Role":
-            addR();
+            var deps = [];
+            connection.query("SELECT * FROM departments", function(err, res) {
+                if (err) throw err;
+                for (var i = 0; i < res.length; i++) {
+                    deps.push(res[i].department);
+                }
+                inquirer.prompt([
+                    {
+                        name: "role",
+                        type: "input",
+                        message: "What role would you like to add?"
+                    },
+                    {
+                        name: "salary",
+                        type: "input",
+                        message: "What salary will this role have?"              
+                    },
+                    {
+                        name: "department",
+                        type: "list",
+                        message: "What department does this role belong to?",
+                        choices: deps,
+                    }
+                    ]).then(function(answer){
+                        res.forEach(function(val, i){
+                            if (res[i].department === answer.department) {
+                                answer.department = res[i].id;
+                            }
+                        });
+                        addin.addR(answer, connection, runCMS);
+                    });
+            });           
             break;
 
         case "Add Employee":
-            addE();
+            var roles = [];
+
+            connection.query("SELECT * FROM roles", function(err, res) {
+                if (err) throw err;
+                for (var i = 0; i < res.length; i++) {
+                    roles.push(res[i].role);
+                }
+                inquirer.prompt([
+                    {
+                        name: "first_name",
+                        type: "input",
+                        message: "Employee's First Name:"
+                    },
+                    {
+                        name: "last_name",
+                        type: "input",
+                        message: "Employee's Last Name:"
+                    },
+                    {
+                        name: "role",
+                        type: "list",
+                        message: "What role will they have in their department?",
+                        choices: roles,
+                    }
+                    ]).then(function(answer){
+                        res.forEach(function(val, i){
+                            if (res[i].role === answer.role) {
+                                answer.role = res[i].id;
+                            }
+                        });
+                        addin.addE(answer, connection, runCMS);
+                    });
+    
+        });            
             break;
 
         case "Update Employee Role":
-            updateEmpRole();
+            var roles = [];
+            var roleList = [];
+            var emps = [];            
+            connection.query("SELECT * FROM roles", function(err, res) {
+                if (err) throw err;
+                for (var i = 0; i < res.length; i++) {
+                    roles.push(res[i].role);
+                    roleList.push(res[i]);
+                }
+                connection.query("SELECT * FROM employees", function(err, res) {
+                    if (err) throw err;
+                    for (var i = 0; i < res.length; i++) {
+                        emps.push(res[i].first_name+ " " + res[i].last_name);
+                    }
+
+                inquirer.prompt([
+                    {
+                        name: "employee",
+                        type: "list",
+                        message: "Which employee would you like to update?",
+                        choices: emps,
+                    },
+                    {
+                        name: "role",
+                        type: "list",
+                        message: "What role would you like to assign?",
+                        choices: roles,
+                    }
+                    ]).then(function(answer){
+                        roles.forEach(function(val, i){
+                            if (roleList[i].role === answer.role) {
+                                answer.role = roleList[i].id;
+                            }
+                        var str = answer.employee;
+                        var array = str.split(" ");
+                        answer.first = array[0];
+                        answer.last = array[1];
+                        });
+                        upd.upRole(answer, connection, runCMS);
+                    });
+                });
+        });            
             break;
 
-        case "exit":
+        case "Exit":
             connection.end();
             break;
         }
