@@ -37,9 +37,10 @@ function runCMS() {
         type: "list",
         message: "What would you like to do?",
         choices: [
-            "View Departments",
-            "View Roles",
-            "View Employees",
+            "View All Employees",
+            "View All Employees by Departments",
+            "View All Employees by Roles",
+            "View All Employees by Manager",
             "Add Department",
             "Add Role",
             "Add Employee",
@@ -51,19 +52,21 @@ function runCMS() {
     .then( function(answer) {
         switch (answer.action) {
 
-        case "View Departments":
+        case "View All Employees by Departments":
             viewit.viewD(connection, runCMS, figlet);
             break;
 
-        case "View Roles":
+        case "View All Employees by Roles":
             viewit.viewR(connection, runCMS, figlet);
             break;
 
-        case "View Employees":
+        case "View All Employees":
             viewit.viewE(connection, runCMS, figlet);
             break;
 
-            
+        case "View All Employees by Manager":
+            viewit.viewM(connection, runCMS, figlet);
+            break;          
 
         case "Add Department":
             inquirer.prompt({
