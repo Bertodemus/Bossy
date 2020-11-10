@@ -51,15 +51,15 @@ function runCMS() {
         switch (answer.action) {
 
         case "View Departments":
-            viewit.viewD(connection, runCMS);
+            viewit.viewD(connection, runCMS, figlet);
             break;
 
         case "View Roles":
-            viewit.viewR(connection, runCMS);
+            viewit.viewR(connection, runCMS, figlet);
             break;
 
         case "View Employees":
-            viewit.viewE(connection, runCMS);
+            viewit.viewE(connection, runCMS, figlet);
             break;
 
         case "Add Department":
@@ -103,7 +103,7 @@ function runCMS() {
                                 answer.department = res[i].id;
                             }
                         });
-                        addin.addR(answer, connection, runCMS);
+                        addin.addR(answer, connection, runCMS, figlet);
                     });
             });           
             break;
@@ -139,7 +139,7 @@ function runCMS() {
                                 answer.role = res[i].id;
                             }
                         });
-                        addin.addE(answer, connection, runCMS);
+                        addin.addE(answer, connection, runCMS, figlet);
                     });
     
         });            
@@ -184,7 +184,7 @@ function runCMS() {
                         answer.first = array[0];
                         answer.last = array[1];
                         });
-                        upd.upRole(answer, connection, runCMS);
+                        upd.upRole(answer, connection, runCMS, figlet);
                     });
                 });
         });            
