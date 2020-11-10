@@ -46,6 +46,8 @@ function runCMS() {
             "Add Employee",
             "Update Employee Role",
             "Update Employee Manager",
+            "Available Roles",
+            "Available Departments",
             "Exit"
         ]
     })
@@ -66,7 +68,15 @@ function runCMS() {
 
         case "View All Employees by Manager":
             viewit.viewM(connection, runCMS, figlet);
-            break;          
+            break;
+            
+        case "Available Roles":
+            viewit.viewRoles(connection, runCMS, figlet);
+            break;  
+        
+        case "Available Departments":
+            viewit.viewDepartments(connection, runCMS, figlet);
+            break;  
 
         case "Add Department":
             inquirer.prompt({
@@ -233,7 +243,6 @@ function runCMS() {
                             answer.first = arrayE[0];
                             answer.last = arrayE[1];
                             });
-                            console.log(answer);
                             upd.upManager(answer, connection, runCMS, figlet);
                         });
                     });         
