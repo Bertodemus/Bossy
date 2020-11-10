@@ -44,6 +44,7 @@ function runCMS() {
             "Add Role",
             "Add Employee",
             "Update Employee Role",
+            "Update Employee Manager",
             "Exit"
         ]
     })
@@ -61,6 +62,8 @@ function runCMS() {
         case "View Employees":
             viewit.viewE(connection, runCMS, figlet);
             break;
+
+            
 
         case "Add Department":
             inquirer.prompt({
@@ -189,6 +192,49 @@ function runCMS() {
                 });
         });            
             break;
+
+            case "Update Employee Manager":
+                var empsList = []; 
+                var emps = [];            
+                    connection.query("SELECT * FROM employees", function(err, res) {
+                        if (err) throw err;
+                        for (var i = 0; i < res.length; i++) {
+                            emps.push(res[i].first_name+ " " + res[i].last_name);
+                            empsList.push(res[i]);
+                        }
+    
+                    inquirer.prompt([
+                        {
+                            name: "employee",
+                            type: "list",
+                            message: "Which employee would you like to update?",
+                            choices: emps,
+                        },
+                        {
+                            name: "manager",
+                            type: "list",
+                            message: "Who would you like to assign as their manager?",
+                            choices: emps,
+                        }
+                        ]).then(function(answer){
+                            var am = answer.manager;
+                            var arrayM = am.split(" ");
+                            
+                            empsList.forEach(function(val, i){
+                                if (empsList[i].first_name === arrayM[0] && empsList[i].last_name === arrayM[1] ) {
+                                    answer.manager = empsList[i].id;
+                                }
+
+                            var ae = answer.employee;
+                            var arrayE = ae.split(" ");
+                            answer.first = arrayE[0];
+                            answer.last = arrayE[1];
+                            });
+                            console.log(answer);
+                            upd.upManager(answer, connection, runCMS, figlet);
+                        });
+                    });         
+                break;
 
         case "Exit":
 console.log(
