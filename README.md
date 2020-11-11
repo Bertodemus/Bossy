@@ -26,6 +26,7 @@ Link to the BossyCMS GitHub: [Bertodemus](https://github.com/Bertodemus/BossyCMS
 
 * You will need to intialize a MySQL database. More information on MySQL, go to : [MySQL](https://www.mysql.com/)
     * Once your MySQL envrionment is up and running, you can use the included `schema.sql` to create the "bossycms_db' database
+    * You can use the provided `seed.sql` file to populate your database with some information
 * The Node.js runtime environment will need to be installed, first.
     * For more information, go to : [Node.js](https://nodejs.org/en/)
 * Copy the files `index.js`, `package.json`, and all of the folders to a local storage location.
