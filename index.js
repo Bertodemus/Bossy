@@ -4,7 +4,6 @@ var cTable = require('console.table');
 var figlet = require('figlet');
 var viewit = require('./lib/view');
 var addin = require('./lib/add');
-var remout = require('./lib/remove');
 var upd = require('./lib/update');
 
 var connection = mysql.createConnection({

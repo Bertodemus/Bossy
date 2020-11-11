@@ -1,0 +1,5 @@
+INSERT INTO departments (department) VALUES ("Administration"), ("Custodial"), ("HR"), ("IT"), ("Legal"), ("Sales"), ("Software Development");
+
+INSERT INTO roles (role, salary, department_id) VALUES ("Payroll", 40000.00, 1), ("Janitor", 35000.00, 2), ("HR Admin", 42000.00, 3), ("HR Auditor", 40000.00, 3), ("Network Admin", 60000.00, 4), ("Senior Admin", 100000.00, 4), ("Lawyer", 120000.00, 5), ("Paralegal", 38000.00, 5), ("Sales Lead", 110000.00, 6), ("Sales Rep", 50000.00, 6), ("Senior Dev", 120000.00, 7), ("Junior Dev", 80000.00, 7);
+
+INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES ("Judd", "Delgado", 1, 0), ("Paul", "Parker", 2, 0), ("Kayla", "Smith", 3, 0), ("Judy", "Garland", 4, 0), ("Dwight", "Shrute", 5, 0), ("Kevin", "McCallister", 5, 0), ("Jimmy", "Dean", 6, 0), ("Perry", "Mason", 7, 0), ("Jack", "Kelly", 7, 0), ("Janine", "Melnitz", 8, 0), ("Peter", "Venkman", 9, 0), ("Ray", "Stantz", 10, 0), ("Egon", "Spengler", 10, 0), ("Ernie", "Hudson", 10, 0), ("Forest", "___", 11, 0), ("Lily", "Chan", 12, 0);
