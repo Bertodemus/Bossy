@@ -10,7 +10,7 @@ var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "My5q1_Okinawa1",
+    password: "",
     database: "bossycms_db"
 });
 
