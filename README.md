@@ -19,7 +19,7 @@ Link to the BossyCMS GitHub: [Bertodemus](https://github.com/Bertodemus/BossyCMS
 
 * Simple command-line application that can be run through [Node.js](https://nodejs.org/en/)
 * Consists of an `index.js` file, a `package.json` file, a folder named "lib" (which contains three JS modules `add.js`, `update.js`, `view.js`), a folder named "staging" (which contains a base MySql file for building the database - `schema.sql` - and a file for populating the database with data - `seeds.sql`), and an "images" folder with a banner image and screenshots for the README.
-* Utilizes  the [Inquirer package](https://www.npmjs.com/package/inquirer), the [MySQL package](https://www.npmjs.com/package/mysql), and the [Figlet package](https://www.npmjs.com/package/figlet)
+* Utilizes  the [Inquirer package](https://www.npmjs.com/package/inquirer), the [MySQL package](https://www.npmjs.com/package/mysql), the [Figlet package](https://www.npmjs.com/package/figlet), and the [console.table package](https://www.npmjs.com/package/console.table)
 
 
 ## Installation
