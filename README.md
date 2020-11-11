@@ -66,7 +66,7 @@ Views of the application in use
 
 This link will allow to you download a small video file, which is a live demo of the application.
 
-[BossyCMS Live Demo](https://github.com/Bertodemus/BossyCMS/raw/main/readme/video/bossy.mp4)
+[BossyCMS Live Demo](https://github.com/Bertodemus/BossyCMS/blob/main/images/bossy.mp4?raw=true)
 
 
 ## Questions
